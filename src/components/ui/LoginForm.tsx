@@ -4,10 +4,15 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
-import { GithubIcon, Loader } from "lucide-react";
-import { useTransition } from "react";
+import { GithubIcon, Loader, Loader2, Send } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 export default function LoginForm() {
+    const router = useRouter();
     const [githubPending, startGithubTransition] = useTransition();
+    const [emailPending, startEmailTransition] = useTransition();
+    const [email, setEmail] = useState("");
     async function signInWithGithub() {
         startGithubTransition(async () => {
             await authClient.signIn.social({
@@ -15,10 +20,27 @@ export default function LoginForm() {
                 callbackURL: "/",
                 fetchOptions: {
                     onSuccess: () => {
-                        alert('Signed with Git')
+                        toast.success('Signed with Git');
                     },
-                    onError: (error) => {
-                        alert("server error");
+                    onError: () => {
+                        toast.success("server error");
+                    }
+                }
+            })
+        })
+    }
+    function signInWithEmail() {
+        startEmailTransition(async () => {
+            await authClient.emailOtp.sendVerificationOtp({
+                email: email,
+                type: 'sign-in',
+                fetchOptions: {
+                    onSuccess: () => {
+                        toast.success("Email send");
+                        router.push(`/verify-request?email=${email}`);
+                    },
+                    onError: () => {
+                        toast.success("Email not send");
                     }
                 }
             })
@@ -35,7 +57,7 @@ export default function LoginForm() {
                 <CardContent className="flex flex-col gap-4">
                     {
                         githubPending ? (<>
-                        <Loader className="size-4 animate-spin"></Loader>
+                            <Loader className="size-4 animate-spin"></Loader>
                         </>) : (<>
                             <Button disabled={githubPending} onClick={signInWithGithub} className="w-full" variant={"outline"}>
                                 <GithubIcon className="size-4" />
@@ -50,12 +72,20 @@ export default function LoginForm() {
                     </div>
 
                     {/* google login  */}
-                    <div className="grid gap-3">
+                    <div className="flex flex-col gap-3">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
-                            <Input type="email" placeholder="Your Email" />
+                            <Input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Your Email" required />
                         </div>
-                        <Button>Continue With Email</Button>
+                        <Button onClick={signInWithEmail} disabled={emailPending}>{
+                            emailPending ? (
+                                <><Loader2 className="size-4 animate-spin" />
+                                    <span>Loading.....</span></>
+                            ) : (
+                                <><Send className="size-4" />
+                                    <span>Continue With Email</span></>
+                            )
+                        }</Button>
                     </div>
                 </CardContent>
             </Card>

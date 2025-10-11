@@ -4,18 +4,19 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/themeToggle";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Home() {
-  // const router = useRouter();
+  const router = useRouter();
   const { data: session } = authClient.useSession();
 
   const handleSignOut = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          // router.push("/");
-          alert("logout")
+          router.push("/");
+          toast.success("logout successfully")
         },
       },
     });

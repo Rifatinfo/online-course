@@ -1,5 +1,4 @@
-
-'use client';
+"use client";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/themeToggle";
 import { authClient } from "@/lib/auth-client";
@@ -16,25 +15,63 @@ export default function Home() {
       fetchOptions: {
         onSuccess: () => {
           router.push("/");
-          toast.success("logout successfully")
+          toast.success("logout successfully");
         },
       },
     });
   };
 
-  return (
-    <div>
-      <p>Hello Home</p>
-      <ThemeToggle />
-      <p>{session?.user?.name}</p>
+  const features = [
+    {
+      title: "Comprehensive Courses",
+      description:
+        "Access a wide range of carefully curated courses designed by industry experts.",
+      icon: "📚",
+    },
+    {
+      title: "Expert Instructors",
+      description:
+        "Learn from top professionals who bring real-world experience into every lesson.",
+      icon: "👩‍🏫",
+    },
+    {
+      title: "Flexible Learning",
+      description:
+        "Study anytime, anywhere, and at your own pace with lifetime access to materials.",
+      icon: "🕒",
+    },
+    {
+      title: "Certification",
+      description:
+        "Earn certificates to showcase your achievements and boost your career prospects.",
+      icon: "🏆",
+    },
+  ];
 
-      {session ? (
-        <Button onClick={handleSignOut}>Logout</Button>
-      ) : (
-        <Link href="/login">
-          <Button>Login</Button>
-        </Link>
-      )}
+  return (
+    // <div>
+    //   <p>Hello Home</p>
+    //   <ThemeToggle />
+    //   <p>{session?.user?.name}</p>
+
+    //   {session ? (
+    //     <Button onClick={handleSignOut}>Logout</Button>
+    //   ) : (
+    //     <Link href="/login">
+    //       <Button>Login</Button>
+    //     </Link>
+    //   )}
+    // </div>
+
+    <div>
+      <section>
+
+      </section>
+
+      {/* feature course  */}
+      <section>
+        
+      </section>
     </div>
   );
 }

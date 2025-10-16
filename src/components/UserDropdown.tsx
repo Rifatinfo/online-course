@@ -1,14 +1,10 @@
+'use client';
 import {
-  BoltIcon,
   BookDashedIcon,
-  BookOpenIcon,
   ChevronDownIcon,
   HomeIcon,
-  Layers2Icon,
   LogOutIcon,
-  PinIcon,
   Text,
-  UserPenIcon,
 } from "lucide-react"
 
 import {
@@ -27,15 +23,39 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
+import { authClient } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
-export default function UserDropdown() {
+interface IProps {
+  name : string;
+  email : string;
+  image : string;
+}
+
+
+export default function UserDropdown({name , email , image} : IProps) {
+  const router = useRouter();
+  async function signOut () {
+    await authClient.signOut({
+      fetchOptions : {
+         onSuccess : () => {
+            router.push("/");
+            toast.success("Singed Out Successfully");
+         },
+         onError : () => {
+          toast.error("Failed to sign out");
+         }
+      }
+    })
+  } 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="h-auto p-0 hover:bg-transparent">
           <Avatar>
-            <AvatarImage src="/origin/avatar.jpg" alt="Profile image" />
-            <AvatarFallback>KK</AvatarFallback>
+            <AvatarImage src={image} alt="Profile image" />
+            <AvatarFallback>{name[0].toUpperCase()}</AvatarFallback>
           </Avatar>
           <ChevronDownIcon
             size={16}
@@ -47,10 +67,10 @@ export default function UserDropdown() {
       <DropdownMenuContent align="end" className="max-w-64">
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="truncate text-sm font-medium text-foreground">
-            Keith Kennedy
+            {name}
           </span>
           <span className="truncate text-xs font-normal text-muted-foreground">
-            k.kennedy@coss.com
+            {email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -75,7 +95,7 @@ export default function UserDropdown() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={signOut}>
           <LogOutIcon size={16} className="opacity-60" aria-hidden="true" />
           <span>Logout</span>
         </DropdownMenuItem>

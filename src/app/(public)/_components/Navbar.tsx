@@ -5,7 +5,6 @@ import { ThemeToggle } from "@/components/ui/themeToggle";
 import UserDropdown from "@/components/UserDropdown";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { toast } from "sonner";
 
 const Navbar = () => {
     const { data: session, isPending } = authClient.useSession();
@@ -16,15 +15,7 @@ const Navbar = () => {
         { name: "Dashboard", href: "/dashboard" },
     ];
 
-    const handleSignOut = async () => {
-        await authClient.signOut({
-            fetchOptions: {
-                onSuccess: () => {
-                    toast.success("Logout successfully");
-                },
-            },
-        });
-    };
+
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
@@ -41,12 +32,17 @@ const Navbar = () => {
                     ))}
 
                     <ThemeToggle />
-                    {/* {isPending ? null : session ? <><UserDropdown /></> : (
+                    {isPending ? null : session ? (
+                        <UserDropdown
+                            email={session?.user?.email}
+                            image={session?.user?.image || ""}
+                            name={session?.user?.name}
+                        />
+                    ) : (
                         <Link href="/login">
                             <Button>Login</Button>
                         </Link>
-                    )} */}
-                    <UserDropdown />
+                    )}
                 </nav>
             </div>
         </header>

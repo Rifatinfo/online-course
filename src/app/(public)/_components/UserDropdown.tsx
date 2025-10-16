@@ -1,3 +1,5 @@
+"use client";
+
 import {
   BoltIcon,
   BookOpenIcon,
@@ -23,8 +25,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { authClient } from "@/lib/auth-client";
 
-export default function UserDropdown() {
+export  async function UserDropdown() {
+  const { data: session } = await authClient.getSession()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,10 +48,10 @@ export default function UserDropdown() {
       <DropdownMenuContent className="max-w-64">
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="truncate text-sm font-medium text-foreground">
-            Keith Kennedy
+           {session?.user.name}
           </span>
           <span className="truncate text-xs font-normal text-muted-foreground">
-            k.kennedy@coss.com
+             {session?.user.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

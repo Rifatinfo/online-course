@@ -1,3 +1,4 @@
+'use client';
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";

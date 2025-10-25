@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle,} from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { courseLevel, courseSchema, CourseSchemaType } from "@/lib/zodSchemas";
+import { courseLevel, courseSchema, CourseSchemaType, courseStatus } from "@/lib/zodSchemas";
 import slugify from "slugify";
 import {
   Form,
@@ -178,6 +178,62 @@ const CourseCreatePage = () => {
                                         <SelectContent>
                                             {
                                                 courseLevel.map((category) => (
+                                                    <SelectItem key={category} value={category}>{category}</SelectItem>
+                                                ))
+                                            }
+                                        </SelectContent>
+                                         </Select>
+                                        
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* duration  */}
+                             <FormField
+                                control={form.control}
+                                name="duration"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Duration (hours)</FormLabel>
+                                        <FormControl>
+                                            <Input  type="number" placeholder="Duration" {...field}  />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            {/* Price  */}
+                             <FormField
+                                control={form.control}
+                                name="duration"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Price ($)</FormLabel>
+                                        <FormControl>
+                                            <Input  type="number" placeholder="Price" {...field}  />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            {/* status */}
+                             <FormField
+                                control={form.control}
+                                name="category"
+                                render={({ field }) => (
+                                    <FormItem className="w-full">
+                                        <FormLabel>Status</FormLabel>
+                                         <Select 
+                                         onValueChange={field.onChange}
+                                         defaultValue={field.value}
+                                         >
+                                         <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Select Status" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {
+                                                courseStatus.map((category) => (
                                                     <SelectItem key={category} value={category}>{category}</SelectItem>
                                                 ))
                                             }

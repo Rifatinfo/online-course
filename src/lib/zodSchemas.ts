@@ -10,7 +10,7 @@ export const courseSchema = z.object({
     description : z.string().min(3),
     fileKey : z.string().min(1),
     price : z.coerce.number().min(1),
-    duration : z.coerce.number().min(1).max(500),
+    duration : z.number().min(1).max(500),
     level : z.enum(courseLevel),
     smallDescription : z.string().min(3).max(3),
     slug : z.string().min(3),

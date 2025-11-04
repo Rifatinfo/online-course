@@ -71,7 +71,7 @@ const CourseCreatePage = () => {
                                 )}
                             />
                         </form>
-                    </Form>
+                    </Form> 
                 </CardContent>
             </Card>
         </div>

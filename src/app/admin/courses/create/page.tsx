@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
+import { RichtextEditor } from "@/components/rich-text-editor/Editor";
 const CourseCreatePage = () => {
     const form = useForm({
         resolver: zodResolver(courseSchema),
@@ -141,10 +142,11 @@ const CourseCreatePage = () => {
                                 render={({ field }) => (
                                     <FormItem className="w-full">
                                         <FormLabel>Description</FormLabel>
-                                        <FormControl>
+                                        <RichtextEditor/>
+                                        {/* <FormControl>
                                             <Textarea placeholder="Description" {...field}  className="min-h-[120px]"/>
                                         </FormControl>
-                                        <FormMessage />
+                                        <FormMessage /> */}
                                     </FormItem>
                                 )}
                             />
@@ -245,9 +247,6 @@ const CourseCreatePage = () => {
                             />
                         </form>
                     </Form> 
-                    </Form>
-
-                  
                 </CardContent>
             </Card>
         </div>

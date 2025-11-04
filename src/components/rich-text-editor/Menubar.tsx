@@ -1,7 +1,7 @@
 import { type Editor } from "@tiptap/react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Toggle } from "../ui/toggle";
-import { Bold, Heading1Icon, Heading2Icon, Heading3Icon, Italic, ListIcon, ListOrdered, Strikethrough } from "lucide-react";
+import { AlignLeft, Bold, Heading1Icon, Heading2Icon, Heading3Icon, Italic, ListIcon, ListOrdered, Strikethrough } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface iAppProps {
@@ -155,6 +155,56 @@ const Menubar = ({ editor }: iAppProps) => {
                 </div>
 
                 <div className="w-px h-6 bg-border mx-2"></div>
+                <div className="flex flex-wrap gap-1">
+                  <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Toggle size="sm" pressed={editor.isActive({textAlign : 'left'})} onPressedChange={() => {
+                                editor.chain().focus().setTextAlign("left").run()
+                            }}
+                                className={cn(
+                                    editor.isActive({textAlign : 'left'}) && "bg-muted text-muted-foreground"
+                                )}
+                            >
+                                <AlignLeft />
+                            </Toggle>
+                        </TooltipTrigger>
+                        <TooltipContent>Align Left</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Toggle size="sm" pressed={editor.isActive({textAlign : 'right'})} onPressedChange={() => {
+                                editor.chain().focus().setTextAlign("right").run()
+                            }}
+                                className={cn(
+                                    editor.isActive({textAlign : 'right'}) && "bg-muted text-muted-foreground"
+                                )}
+                            >
+                                <AlignLeft />
+                            </Toggle>
+                        </TooltipTrigger>
+                        <TooltipContent>Align Right</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Toggle size="sm" pressed={editor.isActive({textAlign : 'center'})} onPressedChange={() => {
+                                editor.chain().focus().setTextAlign("center").run()
+                            }}
+                                className={cn(
+                                    editor.isActive({textAlign : 'center'}) && "bg-muted text-muted-foreground"
+                                )}
+                            >
+                                <AlignLeft />
+                            </Toggle>
+                        </TooltipTrigger>
+                        <TooltipContent>Align Center</TooltipContent>
+                  </Tooltip>
+                </div>
+
+                <div className="w-px h-6 bg-border mx-2"></div>
+
+                <div>
+                   
+                </div>
             </TooltipProvider>
         </div>
     );

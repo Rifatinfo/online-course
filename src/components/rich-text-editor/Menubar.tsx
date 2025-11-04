@@ -90,7 +90,7 @@ const Menubar = ({ editor }: iAppProps) => {
                         </TooltipTrigger>
                         <TooltipContent>Heading 1</TooltipContent>
                     </Tooltip>
-                    
+
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Toggle size="sm" pressed={editor.isActive("heading", { level: 2 })} onPressedChange={() => {
@@ -159,5 +159,6 @@ const Menubar = ({ editor }: iAppProps) => {
         </div>
     );
 };
+
 
 export default Menubar;

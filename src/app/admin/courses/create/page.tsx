@@ -1,5 +1,5 @@
 'use client'
-import { ArrowLeft, SparkleIcon } from "lucide-react";
+import { ArrowLeft, Plus, SparkleIcon } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle,} from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -142,7 +142,7 @@ const CourseCreatePage = () => {
                                 render={({ field }) => (
                                     <FormItem className="w-full">
                                         <FormLabel>Description</FormLabel>
-                                        <RichtextEditor/>
+                                        <RichtextEditor field={field}/>
                                         {/* <FormControl>
                                             <Textarea placeholder="Description" {...field}  className="min-h-[120px]"/>
                                         </FormControl>
@@ -245,6 +245,8 @@ const CourseCreatePage = () => {
                                     </FormItem>
                                 )}
                             />
+
+                            <Button className="text-white">Create Course <Plus/></Button>
                         </form>
                     </Form> 
                 </CardContent>

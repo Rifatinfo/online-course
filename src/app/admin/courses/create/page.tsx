@@ -26,6 +26,7 @@ import {
   SelectValue
 } from "@/components/ui/select"
 import { RichtextEditor } from "@/components/rich-text-editor/Editor";
+import Uploader from "@/components/file-uploader/Uploader";
 const CourseCreatePage = () => {
     const form = useForm({
         resolver: zodResolver(courseSchema),
@@ -157,7 +158,8 @@ const CourseCreatePage = () => {
                                     <FormItem className="w-full">
                                         <FormLabel>Thumbnail</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Thumbnail URL" {...field}  />
+                                            {/* <Input placeholder="Thumbnail URL" {...field}  /> */}
+                                            <Uploader/>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

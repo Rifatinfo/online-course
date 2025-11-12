@@ -8,7 +8,15 @@ const Uploader = () => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     console.log(acceptedFiles);
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop ,
+    accept : {"image/*" : []},
+    maxFiles : 1,
+    multiple : false,
+    maxSize : 5 * 1024 * 1024,
+  });
   return (
     <Card
       {...getRootProps()}

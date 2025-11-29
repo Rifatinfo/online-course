@@ -1,21 +1,79 @@
-import { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+"use client";
+import { useCallback, useState } from "react";
+import { FileRejection, useDropzone } from "react-dropzone";
 import { Card, CardContent } from "../ui/card";
 import { cn } from "@/lib/utils";
 import { RenderEmptyState } from "./RenderState";
+import { toast } from "sonner";
+import { v4 as uuidv4 } from 'uuid';
+
+interface UploaderState {
+  id: string | null;
+  file: File | null;
+  uploading: boolean;
+  progress: number;
+  key?: string;
+  isDeleting: boolean;
+  error: boolean;
+  objectUrl?: string;
+  fileType: "image" | "video";
+}
 
 const Uploader = () => {
+  const [fileState, setFileState] = useState<UploaderState>({
+    error: false,
+    file: null,
+    id: null,
+    uploading: false,
+    progress: 0,
+    isDeleting: false,
+    fileType: "image",
+  });
+
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
+    const file = acceptedFiles[0];
+
+    setFileState({
+      file: file,
+      uploading: false,
+      progress: 0,
+      objectUrl : URL.createObjectURL(file),
+      error : false,
+      id : uuidv4(),
+      isDeleting : false,
+      fileType : "image"
+    });
   }, []);
 
   
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop ,
-    accept : {"image/*" : []},
-    maxFiles : 1,
-    multiple : false,
-    maxSize : 5 * 1024 * 1024,
+  function rejectedFiles(fileRejection: FileRejection[]) {
+    if (fileRejection.length) {
+      const tooManyFiles = fileRejection.find(
+        (rejection) => rejection.errors[0].code === "too-many-files"
+      );
+
+      const fileSizeToBig = fileRejection.find(
+        (rejection) => rejection.errors[0].code === "file-too-large"
+      );
+
+      if (fileSizeToBig) {
+        toast.error("File Size exceeds the limit");
+      }
+
+      if (tooManyFiles) {
+        toast.error("Too many files selected, max is 1");
+      }
+    }
+  }
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { "image/*": [] },
+    maxFiles: 1,
+    multiple: false,
+    maxSize: 5 * 1024 * 1024,
+    onDropRejected: rejectedFiles,
   });
   return (
     <Card
@@ -29,7 +87,7 @@ const Uploader = () => {
     >
       <CardContent className="flex justify-center items-center p-4 h-full w-full">
         <input {...getInputProps()} />
-        <RenderEmptyState isDragActive={isDragActive}/>
+        <RenderEmptyState isDragActive={isDragActive} />
       </CardContent>
     </Card>
   );

@@ -19,7 +19,12 @@ interface UploaderState {
   fileType: "image" | "video";
 }
 
-const Uploader = () => {
+interface iAppProps {
+  value? : string;
+  onChange? : (value : string) => void;
+}
+
+const Uploader = ({onChange, value} : iAppProps) => {
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
     file: null,
@@ -28,7 +33,9 @@ const Uploader = () => {
     progress: 0,
     isDeleting: false,
     fileType: "image",
+    key : value
   });
+
 
   async function uploadFile(file: File) {
     setFileState((prev) => ({

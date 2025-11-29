@@ -1,6 +1,46 @@
 import Link from "next/link";
 
-const CoursePage = () => {
+const CoursePage = async () => {
+    // admin can excess this data 
+    const data = [
+        {
+            id: "1",
+            title: "Full Stack Web Development",
+            description: "Learn MERN stack from zero to advanced.",
+            duration: "12 weeks",
+            level: "Intermediate",
+            status: "active",
+            price: 149.99,
+            fileKey: "course-img-1.jpg",
+            slug: "full-stack-web-development",
+            smallDescription: "Complete MERN stack course."
+        },
+        {
+            id: "2",
+            title: "UI/UX Design Masterclass",
+            description: "Master user interface & user experience design.",
+            duration: "8 weeks",
+            level: "Beginner",
+            status: "active",
+            price: 99.99,
+            fileKey: "course-img-2.jpg",
+            slug: "ui-ux-design-masterclass",
+            smallDescription: "Learn UI/UX from scratch."
+        },
+        {
+            id: "3",
+            title: "Advanced JavaScript & TypeScript",
+            description: "Deep dive into modern JS and TS features.",
+            duration: "10 weeks",
+            level: "Advanced",
+            status: "inactive",
+            price: 129.99,
+            fileKey: "course-img-3.jpg",
+            slug: "advanced-javascript-typescript",
+            smallDescription: "Advanced JS/TS for real projects."
+        }
+    ];
+
     return (
         <div className="px-4 l:px-6">
             <div className="flex item-center justify-between">
@@ -9,7 +49,7 @@ const CoursePage = () => {
             </div>
 
             <div>
-               
+
             </div>
         </div>
     );

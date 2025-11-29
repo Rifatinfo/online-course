@@ -48,19 +48,7 @@ export default function Home() {
   ];
 
   return (
-    // <div>
-    //   <p>Hello Home</p>
-    //   <ThemeToggle />
-    //   <p>{session?.user?.name}</p>
-
-    //   {session ? (
-    //     <Button onClick={handleSignOut}>Logout</Button>
-    //   ) : (
-    //     <Link href="/login">
-    //       <Button>Login</Button>
-    //     </Link>
-    //   )}
-    // </div>
+  
 
     <div>
       <section className="relative py-20">

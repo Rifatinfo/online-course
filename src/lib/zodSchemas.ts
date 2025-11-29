@@ -12,7 +12,7 @@ export const courseSchema = z.object({
     price : z.coerce.number().min(1),
     duration : z.number().min(1).max(500),
     level : z.enum(courseLevel),
-    smallDescription : z.string().min(3).max(3),
+    smallDescription : z.string().min(3).max(30),
     slug : z.string().min(3),
     status : z.enum(courseStatus),
     category : z.enum(courseCategory, {message : "Category is required"})

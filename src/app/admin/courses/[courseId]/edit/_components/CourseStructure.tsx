@@ -14,7 +14,7 @@ import { ReactNode, useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { cn } from '@/lib/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ChevronDown, ChevronRight, FileText, GripVertical, Link, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, DeleteIcon, FileText, GripVertical, Link, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
@@ -187,22 +187,31 @@ const CourseStructure = ({ data }: iAppProps) => {
                                                             {item.lessons.map((lesson) => (
                                                                 <SortableItem key={lesson.id} id={lesson.id} data={{ type: 'lesson', chapterId: item.id }}>
                                                                     {(lessonListeners) => (
-                                                                        <div className="flex items-center justify-center p-2 hover:bg-accent rounded-sm">
-                                                                            <div className="flex item-center gap-2">
+                                                                        <div className="flex items-center justify-between p-2 hover:bg-accent rounded-sm">
+                                                                            {/* Left side */}
+                                                                            <div className="flex items-center gap-2">
                                                                                 <Button size="icon" variant="ghost" {...lessonListeners}>
-                                                                                    <GripVertical className="size-4" />
+                                                                                <GripVertical className="size-4" />
                                                                                 </Button>
-                                                                                <FileText className="size-4"
-                                                                                />
-                                                                                <Link href={`/admin/courses/${data.id}/${item.id}/${lesson.id}`}>
-                                                                                    {lesson.title}
-                                                                                </Link>
+
+                                                                                <FileText className="size-4" />
+                                                                                {/* <Link href={`/admin/courses/${data.id}/${item.id}/${lesson.id}`}></Link> */}
+                                                                               <p className="text-sm">{lesson.title}</p>
                                                                             </div>
-                                                                        </div>
+
+                                                                            {/* Right side delete button */}
+                                                                            <Button variant="outline" size="icon">
+                                                                               <Trash2 className="size-4" />
+                                                                            </Button>
+                                                                            </div>
+
                                                                     )}
                                                                 </SortableItem>
                                                             ))}
                                                         </SortableContext>
+                                                        <div>
+                                                            <Button className="w-full" variant="outline">Create New Lesson</Button>
+                                                        </div>
                                                     </div>
                                                 </CollapsibleContent>
                                             </Collapsible>

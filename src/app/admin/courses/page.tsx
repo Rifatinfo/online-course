@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AdminCourseCard from "./_components/AdminCourseCard";
 
 const CoursePage = async () => {
     // admin can excess this data 
@@ -48,8 +49,10 @@ const CoursePage = async () => {
                 <Link href="/admin/courses/create" className="inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground">Create Course</Link>
             </div>
 
-            <div>
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-7">
+                {data.map((course) => (
+                    <AdminCourseCard key={course.id} data={course}/>
+                ))}
             </div>
         </div>
     );

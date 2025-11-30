@@ -56,7 +56,7 @@ export default function VerifyRequest() {
         });
     };
     return (
-        <div className="max-w-sm mx-auto">
+        <div className="max-w-sm mx-auto flex justify-center items-center min-h-screen">
             <Card className="w-full mx-auto">
                 <CardHeader className="text-center">
                     <CardTitle className="text-xl">Please Check your email</CardTitle>

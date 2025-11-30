@@ -1,0 +1,70 @@
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  image         String?
+  role          String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  course Course[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Course {
+  id String @id @default(uuid())
+
+  title String
+  description String
+  fileKey String
+  price Int
+  duration Int
+  level CourseLevel @default(Beginner)
+  category String
+  status CourseStatus @default(Draft)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId String
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  chapter Chapter[]
+}
+
+enum CourseLevel {
+  Beginner
+  Intermediate
+  Advanced
+}
+
+enum CourseStatus {
+  Draft
+  Published
+  Archive
+}
+
+model Chapter{
+    id String @id @default(uuid())
+    title String
+    position Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default
+    Course Course? @relation(fields : [courseId], references : [id])
+    courseId String
+    lessons Lesson[]
+}
+
+model Lesson {
+    id String @id @default(uuid())
+    title String
+    description String?
+    thumbnailKey String?
+    videoKey String? 
+    position Int 
+    createdAt DateTime @default(now())
+    updatedAt DateTime @default
+    chapterId String
+    Chapter Chapter @relation(fields : [chapterId], references : [id])
+}
+

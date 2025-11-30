@@ -159,7 +159,7 @@ const CourseCreatePage = () => {
                                         <FormLabel>Thumbnail</FormLabel>
                                         <FormControl>
                                             {/* <Input placeholder="Thumbnail URL" {...field}  /> */}
-                                            <Uploader onChange={field.onChange} value={field.value}/>
+                                            <Uploader/>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

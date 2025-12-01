@@ -199,6 +199,7 @@ const CourseStructure = ({ data }: iAppProps) => {
                                                                                <p className="text-sm">{lesson.title}</p>
                                                                             </div>
 
+
                                                                             {/* Right side delete button */}
                                                                             <Button variant="outline" size="icon">
                                                                                <Trash2 className="size-4" />

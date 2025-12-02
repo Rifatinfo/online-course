@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
@@ -16,6 +17,9 @@ import { cn } from '@/lib/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronDown, ChevronRight, DeleteIcon, FileText, GripVertical, Link, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
+import NewChapterModal from './NewChapterModal';
+import NewLessonModal from './NewLessonModal';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface iAppProps {
@@ -131,7 +135,82 @@ const CourseStructure = ({ data }: iAppProps) => {
         })
     );
 
-    function handleDragEnd(event) {
+    // function handleDragEnd(event : DragEndEvent) {
+    //     const { active, over } = event;
+
+    //     if (!over || active.id === over.id) {
+    //         return;
+    //     }
+
+    //     const activeId = active.id;
+    //     const overId = over.id;
+    //     const activeType = active.data.current?.type as "chapter" | "lesson";
+    //     const overType = over.data.current?.type as "chapter" | "lesson";
+    //     const courseId = data.id;
+
+    //     if (activeType === "chapter") {
+    //         let targetChapterId = null;
+    //         if (overType === "chapter") {
+    //             targetChapterId = overId;
+    //         } else if (overType === "lesson") {
+    //             targetChapterId = over.data.current?.chapterId ?? null;
+    //         }
+
+    //         if (!targetChapterId) {
+    //             toast.error("Could not Determine the chapter for reordering")
+    //             return;
+    //         }
+
+    //         const oldIndex = items.findIndex((item) => item.id === activeId);
+    //         const newIndex = items.findIndex((item) => item.id === targetChapterId);
+
+    //         if(oldIndex === -1 || newIndex === -1){
+    //            toast.error("Could not find chapter old/new index for reordering");
+    //            return;
+    //         }
+
+    //         const reordedLocalChapter = arrayMove(items, oldIndex, newIndex);
+
+    //         const updatedChapterForState = reordedLocalChapter.map((chapter, index) => ({
+    //             ...chapter,
+    //             order : index + 1,
+    //         }));
+
+    //         const previousItems = [...items];
+    //         setItems(updatedChapterForState);
+    //     }
+
+    //     if(activeType === "lesson" && overType === "lesson"){
+    //        const chapterId = active.data.current?.chapterId;
+    //        const overChapterId = over.data.current?.chapterId;
+           
+    //        if(!chapterId || chapterId !== overChapterId){
+    //           toast.error("lesson move between different chapters on invalid chapter or id is not allow");
+    //           return;
+    //        }
+
+    //        const chapterIndex = items.findIndex((chapter) => chapter.id === chapterId);
+    //        if(!chapterIndex){
+    //           toast.error("Could not find chapter for lesson");
+    //        }
+           
+    //        const chapterToUpdate = items[chapterIndex];
+
+    //        const oldLessonIndex = chapterToUpdate.lessons.findIndex((lesson) => lesson.id === activeId);
+    //        const newLessonIndex = chapterToUpdate.lessons.findIndex((lesson) => lesson.id === overId);
+           
+    //        if(oldLessonIndex === -1 || newLessonIndex === -1){
+    //            toast.error("Could not find lesson for reordering");
+    //            return;
+    //        }
+
+    //     //    const reordedlessons = arrayMove(chapterToUpdate.lessons, oldLessonIndex, newLessonIndex);
+           
+    //     }
+
+    // }
+
+    function handleDragEnd(event : any) {
         const { active, over } = event;
 
         if (active.id !== over.id) {
@@ -142,16 +221,17 @@ const CourseStructure = ({ data }: iAppProps) => {
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
-    }
+    }  
     return (
         <div>
             <DndContext collisionDetection={rectIntersection} onDragEnd={handleDragEnd} sensors={sensors}>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between border-b border-border">
                         <CardTitle>Chapter</CardTitle>
+                        <NewChapterModal courseId={data.id}/>
                     </CardHeader>
 
-                    <CardContent>
+                    <CardContent className='space-y-8'>
                         <SortableContext
                             strategy={verticalListSortingStrategy}
                             items={items}
@@ -191,27 +271,33 @@ const CourseStructure = ({ data }: iAppProps) => {
                                                                             {/* Left side */}
                                                                             <div className="flex items-center gap-2">
                                                                                 <Button size="icon" variant="ghost" {...lessonListeners}>
-                                                                                <GripVertical className="size-4" />
+                                                                                    <GripVertical className="size-4" />
                                                                                 </Button>
 
                                                                                 <FileText className="size-4" />
                                                                                 {/* <Link href={`/admin/courses/${data.id}/${item.id}/${lesson.id}`}></Link> */}
-                                                                               <p className="text-sm">{lesson.title}</p>
+                                                                                <p className="text-sm">{lesson.title}</p>
                                                                             </div>
 
 
                                                                             {/* Right side delete button */}
                                                                             <Button variant="outline" size="icon">
-                                                                               <Trash2 className="size-4" />
+                                                                                <Trash2 className="size-4" />
                                                                             </Button>
-                                                                            </div>
+                                                                        </div>
 
                                                                     )}
                                                                 </SortableItem>
                                                             ))}
                                                         </SortableContext>
-                                                        <div>
+                                                        {/* <div>
                                                             <Button className="w-full" variant="outline">Create New Lesson</Button>
+                                                        </div> */}
+                                                        <div className="p-2">
+                                                            <NewLessonModal 
+                                                            chapterId={item.id}
+                                                            courseId={data.id}
+                                                            />
                                                         </div>
                                                     </div>
                                                 </CollapsibleContent>
@@ -221,6 +307,7 @@ const CourseStructure = ({ data }: iAppProps) => {
                                 </SortableItem>
                             )}
                         </SortableContext>
+
                     </CardContent>
                 </Card>
             </DndContext>

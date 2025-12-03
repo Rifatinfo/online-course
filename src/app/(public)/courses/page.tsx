@@ -1,9 +1,6 @@
-import Link from "next/link";
-import AdminCourseCard from "./_components/AdminCourseCard";
-import { EmptyState } from "@/components/general/EmptyState";
+import PublicCourseCard from "@/components/PublicCourseCard";
 
-const CoursePage = async () => {
-    // admin can excess this data 
+const PublicCoursesRoute = () => {
     const data = [
         {
             id: "1",
@@ -42,33 +39,24 @@ const CoursePage = async () => {
             smallDescription: "Advanced JS/TS for real projects."
         }
     ];
-
     return (
-        <div className="px-4 l:px-6">
-            <div className="flex item-center justify-between">
-                <h1 className="text-2xl font-bold">Hey How are You</h1>
-                <Link href="/admin/courses/create" className="inline-flex items-center justify-center rounded-md border border-input bg-background px-3 py-2 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground">Create Course</Link>
-            </div>
-
-            
-
-            {data.length === 0 ? (
-                <EmptyState
-                    title="No Courses Found"
-                    description="Create a new course to get started"
-                    buttonText="Create Course"
-                    href="/admin/courses/create"
-                />
-            ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-3 gap-7">
-                    {data.map((course) => (
-                        <AdminCourseCard key={course.id} data={course} />
-                    ))}
+        <div>
+            <div className="mt-5">
+                <div className="flex flex-col space-y-2 mb-10">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tighter">Explore Courses</h1>
+                    <p className="text-muted-foreground">
+                        discover our vide range of courses designed to help you achieve your  learning goals.
+                    </p>
                 </div>
-            )}
 
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-3">
+                   {data?.map((course) => (
+                     <PublicCourseCard key={course.id} course={course}/>
+                   ))}
+                </div>
+            </div>
         </div>
     );
 };
 
-export default CoursePage;
+export default PublicCoursesRoute;

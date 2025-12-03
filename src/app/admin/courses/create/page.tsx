@@ -27,7 +27,9 @@ import {
 } from "@/components/ui/select"
 import { RichtextEditor } from "@/components/rich-text-editor/Editor";
 import Uploader from "@/components/file-uploader/Uploader";
+import { useFettie } from "@/hooks/use-confetti";
 const CourseCreatePage = () => {
+    const { run } = useFettie();
     const form = useForm({
         resolver: zodResolver(courseSchema),
         defaultValues: {
@@ -46,6 +48,7 @@ const CourseCreatePage = () => {
 
     function onSubmit(values: CourseSchemaType) {
         console.log(values)
+        run();
     }
     return (
         <div className="px-4 l:px-6">

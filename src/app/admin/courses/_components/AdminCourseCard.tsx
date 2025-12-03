@@ -82,6 +82,11 @@ const AdminCourseCard = ({data} : iAppProps) => {
                        <Button className="w-full text-white mt-4 cursor-pointer">
                        Edit Course <ArrowRight className="size-4"/></Button>
                     </Link>
+
+                     <Link className="bg-primary text-white w-full " href={`/admin/courses/${data.id}/edit`}>
+                       <Button className="w-full text-white mt-4 cursor-pointer">
+                       Edit Course <ArrowRight className="size-4"/></Button>
+                    </Link>
                 </CardContent>
             </Card>
         </div>

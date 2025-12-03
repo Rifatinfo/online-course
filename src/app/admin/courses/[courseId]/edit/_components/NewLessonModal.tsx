@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { chapterSchema, ChapterSchemaType, lessonSchema } from "@/lib/zodSchemas";
+import { ChapterSchemaType, lessonSchema } from "@/lib/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { useState } from "react";
@@ -27,6 +27,9 @@ const NewLessonModal  = ({courseId, chapterId } : {courseId : string, chapterId 
         });
 
     function handleOpenChange(open : boolean){
+        if(!open){
+           form.reset()
+        }
         setIsOpen(open);
     }
     return (

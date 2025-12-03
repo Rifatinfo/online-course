@@ -1,4 +1,5 @@
 "use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,7 +16,7 @@ import { Trash2 } from "lucide-react";
 
 import { useState } from "react";
 
-const DeleteLesson = ({chapterId, courseId, lessonId} : {chapterId : string, courseId : string, lessonId : string}) => {
+const DeleteChapter = ({chapterId, courseId, } : {chapterId : string, courseId : string}) => {
   const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
       // const [pending, startTransition] = useState(false);
@@ -36,7 +37,7 @@ const DeleteLesson = ({chapterId, courseId, lessonId} : {chapterId : string, cou
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              account and remove your data from our chapter.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -49,4 +50,4 @@ const DeleteLesson = ({chapterId, courseId, lessonId} : {chapterId : string, cou
   );
 };
 
-export default DeleteLesson;
+export default DeleteChapter;

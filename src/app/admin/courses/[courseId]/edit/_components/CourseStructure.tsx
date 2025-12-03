@@ -15,11 +15,13 @@ import { ReactNode, useState } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { cn } from '@/lib/utils';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { ChevronDown, ChevronRight, DeleteIcon, FileText, GripVertical, Link, Trash2 } from 'lucide-react';
+import { ChevronDown, ChevronRight, DeleteIcon, FileText, GripVertical, } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
 import NewChapterModal from './NewChapterModal';
 import NewLessonModal from './NewLessonModal';
+import DeleteLesson from './DeleteLesson';
+import DeleteChapter from './DeleteChapter';
+import Link from 'next/link';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface iAppProps {
@@ -255,9 +257,10 @@ const CourseStructure = ({ data }: iAppProps) => {
                                                         <p className="cursor-pointer hover:text-primary pl-2">{item.title}</p>
                                                     </div>
 
-                                                    <Button size="icon" variant="outline">
+                                                    {/* <Button size="icon" variant="outline">
                                                         <Trash2 className="size-4" />
-                                                    </Button>
+                                                    </Button> */}
+                                                    <DeleteChapter chapterId={item.id} courseId={data.id}/>
                                                 </div>
                                                 <CollapsibleContent>
                                                     <div className="p-1">
@@ -275,15 +278,20 @@ const CourseStructure = ({ data }: iAppProps) => {
                                                                                 </Button>
 
                                                                                 <FileText className="size-4" />
-                                                                                {/* <Link href={`/admin/courses/${data.id}/${item.id}/${lesson.id}`}></Link> */}
-                                                                                <p className="text-sm">{lesson.title}</p>
+                                                                                <Link href={`/admin/courses/${data.id}/${item.id}/${lesson.id}`}>  <p className="text-sm">{lesson.title}</p></Link>
+                                                                               
                                                                             </div>
 
 
                                                                             {/* Right side delete button */}
-                                                                            <Button variant="outline" size="icon">
+                                                                            {/* <Button variant="outline" size="icon">
                                                                                 <Trash2 className="size-4" />
-                                                                            </Button>
+                                                                            </Button> */}
+                                                                            <DeleteLesson 
+                                                                            chapterId={item.id}
+                                                                            courseId={data.id}
+                                                                            lessonId={lesson.id}
+                                                                            />
                                                                         </div>
 
                                                                     )}

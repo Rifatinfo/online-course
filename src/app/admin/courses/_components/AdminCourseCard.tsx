@@ -14,7 +14,7 @@ interface iAppProps {
 const AdminCourseCard = ({data} : iAppProps) => {
     return (
         <div>
-            <Card className="group relative py-0 gap-0">
+            <Card className="group relative py-0 gap-0 mt-4">
                 <div className="absolute top-2 right-2 z-10">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -79,11 +79,6 @@ const AdminCourseCard = ({data} : iAppProps) => {
                     </div>
 
                     <Link className="bg-primary text-white w-full " href={`/admin/courses/${data.id}/edit`}>
-                       <Button className="w-full text-white mt-4 cursor-pointer">
-                       Edit Course <ArrowRight className="size-4"/></Button>
-                    </Link>
-
-                     <Link className="bg-primary text-white w-full " href={`/admin/courses/${data.id}/edit`}>
                        <Button className="w-full text-white mt-4 cursor-pointer">
                        Edit Course <ArrowRight className="size-4"/></Button>
                     </Link>

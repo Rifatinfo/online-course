@@ -36,7 +36,7 @@ const PublicCourseCard = ({ course }: any) => {
                             <p className="text-sm text-muted-foreground">{course.level}</p>
                         </div>
                     </div>
-                    <Link className="bg-primary text-white w-full " href={`/courses/${course.id}`}>
+                    <Link className="bg-primary text-white w-full " href={`/courses/${course.slug}`}>
                         <Button className="w-full text-white mt-4 cursor-pointer">
                             Learn More <ArrowRight className="size-4" /></Button>
                     </Link>

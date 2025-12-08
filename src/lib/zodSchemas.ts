@@ -1,8 +1,8 @@
 import {z} from "zod";
 
 export const courseLevel = ["Beginner", "Intermediate", "Advanced"] as const;
-export const courseStatus = ["Draft", "Published", "Archived"] as const;
-export const courseCategory = ["Development", "React", "Next Js"] as const;
+export const courseStatus = ["Pending", "Published", "Archived"] as const;
+export const courseCategory = ["Development", "Design", "Marketing"] as const;
 
 
 export const courseSchema = z.object({

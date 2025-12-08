@@ -1,10 +1,10 @@
 
-const page = () => {
+const LessonContentPage = () => {
     return (
         <div>
-            
+            <p>LessonContent</p>
         </div>
     );
 };
 
-export default page;
+export default LessonContentPage;

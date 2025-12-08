@@ -38,6 +38,7 @@ const course = {
 };
 
 const CourseSidebar = () => {
+ 
   return (
      <div className="flex flex-col h-full bg-[#1a1a1a] text-white p-4">
 
